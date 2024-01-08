@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class ArticleController {
@@ -23,16 +21,18 @@ public class ArticleController {
 
     @GetMapping("/article/doWrite")
     @ResponseBody
-    Map<String, Object> doWrite(
+    RsData<Article> doWrite(
             String title,
             String body
     ){
         Article article = new Article(articles.size()+1, title, body);
-        Map<String, Object> rs = new HashMap<>();
-        rs.put("msg", "%d번 게시물이 작성되었습니다.".formatted(article.getId()));
-        rs.put("data", article);
-
         articles.add(article);
+        RsData<Article> rs = new RsData<>(
+                "S-1",
+                "%d번 게시물이 작성되었습니다".formatted(article.getId()),
+                article
+        );
+
         return rs;
     }
 
@@ -56,4 +56,12 @@ class Article{
     private long id;
     private String title;
     private String body;
+}
+
+@AllArgsConstructor
+@Getter
+class RsData<T>{
+    private String resultCode;
+    private String msg;
+    private T data;
 }
