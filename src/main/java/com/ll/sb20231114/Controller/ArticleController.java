@@ -21,19 +21,12 @@ public class ArticleController {
 
     @GetMapping("/article/doWrite")
     @ResponseBody
-    RsData<Article> doWrite(
-            String title,
-            String body
-    ){
-        Article article = new Article(articles.size()+1, title, body);
+    RsData<Article> doWrite(String title, String body){
+        long id = articles.size()+1;
+        Article article = new Article(id, title, body);
         articles.add(article);
-        RsData<Article> rs = new RsData<>(
-                "S-1",
-                "%d번 게시물이 작성되었습니다".formatted(article.getId()),
-                article
-        );
 
-        return rs;
+        return new RsData<>("S-1", "성공", article);
     }
 
     @GetMapping("/article/getLastArticle")

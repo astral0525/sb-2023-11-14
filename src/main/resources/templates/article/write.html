@@ -1,4 +1,47 @@
-<a href="/article/doWrite?title=제목&body=내용">
-    글쓰기
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="display:flex; flex-direction: column; gap:20px; max-width:500px;">
+        <input type="text" id="input-title" placeholder="제목">
+        <input type="text" id="input-body" placeholder="내용">
+        <!-- javascript:;는 아무것도 하지 않는다는 뜻 -->
+        <!--click누를 시 submitWriteForm()함수 호출-->
 
-</a>
+        <a href="javascript:;" onclick="submitWriteForm();">
+            글쓰기
+        </a>
+    </div>
+
+<script>
+    function submitWriteForm(){
+        const inputTitle = document.getElementById('input-title');
+        const inputBody = document.getElementById('input-body');
+
+        inputTitle.value = inputTitle.value.trim(); //선trim
+        inputBody.value = inputBody.value.trim();
+
+        const title = inputTitle.value;
+        const body = inputBody.value;
+
+        if(title.length==0){
+            alert('제목을 입력해주세요.'); //알림메시지
+            inputTitle.focus(); //Title쪽으로 커서이동
+            return;
+        }
+        if(title.body==0){
+            alert('내용을 입력해주세요.');
+            inputBody.focus(); //Body쪽으로 커서이동
+            return;
+        }
+        location.href = `/article/doWrite?title=${title}&body=${body}`;
+    }
+</script>
+
+</body>
+</html>
