@@ -1,4 +1,4 @@
-package com.ll.sb20231114.Controller;
+package com.ll.sb20231114.domain.home.home.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

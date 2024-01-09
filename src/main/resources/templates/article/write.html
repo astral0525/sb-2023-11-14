@@ -7,21 +7,26 @@
     <title>Document</title>
 </head>
 <body>
-    <div style="display:flex; flex-direction: column; gap:20px; max-width:500px;">
-        <input type="text" id="input-title" placeholder="제목">
-        <input type="text" id="input-body" placeholder="내용">
+    <!--form은 고객에게 값을 입력받아 URL을 전송하는 전송기임-->
+    <!--form은 엔터누르면 자동전송-->
+    <!--지금은 return false를 입력해 자동전송을 막은 후
+        submitWriteForm(this);를 통해 내용을 확인 한 후
+        form.submit();이 동작하도록 만들어 놓음 -->
+    <!-- form.submit();하면 action이 가리키는 /article/doWrite에
+         title(name)=~~, body=~~가 날라감
+          즉 localhost:8020/article/doWrite?title=제목&body=내용이 날라감-->
+    <form method="POST" action="/article/Write" onsubmit="submitWriteForm(this); return false;"
+          style="display:flex; flex-direction: column; gap:20px; max-width:500px;">
+        <input type="text" name="title" placeholder="제목">
+        <input type="text" name ="body" placeholder="내용">
         <!-- javascript:;는 아무것도 하지 않는다는 뜻 -->
-        <!--click누를 시 submitWriteForm()함수 호출-->
-
-        <button type="submit" onclick="submitWriteForm();">
-            글쓰기
-        </button>
-    </div>
+        <button type="submit" >글쓰기</button>
+    </form>
 
 <script>
-    function submitWriteForm(){
-        const inputTitle = document.getElementById('input-title');
-        const inputBody = document.getElementById('input-body');
+    function submitWriteForm(form){
+        const inputTitle = form.title;
+        const inputBody = form.body;
 
         inputTitle.value = inputTitle.value.trim(); //선trim
         inputBody.value = inputBody.value.trim();
@@ -39,7 +44,7 @@
             inputBody.focus(); //Body쪽으로 커서이동
             return;
         }
-        location.href = `/article/doWrite?title=${title}&body=${body}`;
+        form.submit();
     }
 </script>
 

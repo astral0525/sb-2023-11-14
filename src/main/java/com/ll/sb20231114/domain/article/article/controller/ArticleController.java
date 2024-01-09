@@ -1,9 +1,10 @@
-package com.ll.sb20231114.Controller;
+package com.ll.sb20231114.domain.article.article.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.ll.sb20231114.domain.article.article.entity.Article;
+import com.ll.sb20231114.global.rsData.RsData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -19,9 +20,9 @@ public class ArticleController {
         return "article/write";
     }
 
-    @GetMapping("/article/doWrite")
+    @PostMapping("/article/Write")
     @ResponseBody
-    RsData<Article> doWrite(String title, String body){
+    RsData<Article> write(String title, String body){
         long id = articles.size()+1;
         Article article = new Article(id, title, body);
         articles.add(article);
@@ -43,18 +44,3 @@ public class ArticleController {
 
 }
 
-@AllArgsConstructor
-@Getter
-class Article{
-    private long id;
-    private String title;
-    private String body;
-}
-
-@AllArgsConstructor
-@Getter
-class RsData<T>{
-    private String resultCode;
-    private String msg;
-    private T data;
-}
