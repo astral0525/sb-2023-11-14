@@ -15,8 +15,14 @@ import java.util.List;
 @Controller
 public class ArticleController {
 
-    @Autowired //필드주입->나중에 생성자주입으로 변경예정
-    private ArticleService articleService = new ArticleService();
+    private final ArticleService articleService;
+
+    @Autowired
+    public ArticleController(ArticleService articleService){
+        this.articleService = articleService;
+    }
+
+
     private List<Article> articles =  new ArrayList<>();
 
 
